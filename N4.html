@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>4. Horas Extras Trabajadas</title>
+</head>
+<body>
+    <h1>4. Horas Extras Trabajadas</h1>
+
+    <label for="numEmpleados">Ingrese la cantidad de empleados:</label>
+    <input type="number" id="numEmpleados" min="1">
+    <button onclick="obtenerHorasTrabajadas()">Aceptar</button>
+
+    <div id="horasTrabajadas" style="display: none;">
+        <h2>Ingrese las horas extras trabajadas por los empleados:</h2>
+        <form id="horasForm">
+        </form>
+        <button onclick="calcularSumaYPromedio()">Calcular</button>
+    </div>
+
+    <div id="resultados" style="display: none;">
+        <h2>Resultados:</h2>
+        <p>Suma de horas extras: <span id="sumaHoras"></span> Hrs </p>
+ 
+    </div>
+
+    <script>
+        function obtenerHorasTrabajadas() {
+            const numEmpleados = parseInt(document.getElementById("numEmpleados").value);
+            const horasForm = document.getElementById("horasForm");
+            horasForm.innerHTML = "";
+
+            for (let i = 0; i < numEmpleados; i++) {
+                horasForm.innerHTML += `
+                    <label for="horasEmpleado${i}">Horas trabajadas por el Empleado ${i + 1}:</label>
+                    <input type="number" id="horasEmpleado${i}" min="0"><br>
+                `;
+            }
+
+            document.getElementById("horasTrabajadas").style.display = "block";
+        }
+
+        function calcularSumaYPromedio() {
+            const numEmpleados = parseInt(document.getElementById("numEmpleados").value);
+            let sumaHoras = 0;
+
+            for (let i = 0; i < numEmpleados; i++) {
+                const horas = parseFloat(document.getElementById(`horasEmpleado${i}`).value);
+                sumaHoras += horas;
+            }
+
+
+
+            document.getElementById("sumaHoras").textContent = sumaHoras.toFixed(2);
+          
+            document.getElementById("resultados").style.display = "block";
+        }
+    </script>
+</body>
+</html>
+

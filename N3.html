@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>3. Suma y Promedio de Empleados</title>
+</head>
+<body>
+    <h1>3. Suma y Promedio de Empleados</h1>
+
+    <label for="numEmpleados">Ingrese la cantidad de empleados:</label>
+    <input type="number" id="numEmpleados" min="1">
+    <button onclick="obtenerSalarios()">Aceptar</button>
+
+    <div id="salarios" style="display: none;">
+        <h2>Ingrese los salarios de los empleados:</h2>
+        <form id="salarioForm">
+        </form>
+        <button onclick="calcularSumaYPromedio()">Calcular</button>
+    </div>
+
+    <div id="resultados" style="display: none;">
+        <h2>Resultados:</h2>
+        <p>Suma de salarios: Q <span id="sumaSalarios"></span></p>
+        <p>Promedio de salarios: Q <span id="promedioSalarios"></span></p>
+    </div>
+
+    <script>
+        function obtenerSalarios() {
+            const numEmpleados = parseInt(document.getElementById("numEmpleados").value);
+            const salarioForm = document.getElementById("salarioForm");
+            salarioForm.innerHTML = "";
+
+            for (let i = 0; i < numEmpleados; i++) {
+                salarioForm.innerHTML += `
+                    <label for="salarioEmpleado${i}">Salario del Empleado ${i + 1}:</label>
+                    <input type="number" id="salarioEmpleado${i}" min="0"><br>
+                `;
+            }
+
+            document.getElementById("salarios").style.display = "block";
+        }
+
+        function calcularSumaYPromedio() {
+            const numEmpleados = parseInt(document.getElementById("numEmpleados").value);
+            let sumaSalarios = 0;
+
+            for (let i = 0; i < numEmpleados; i++) {
+                const salario = parseFloat(document.getElementById(`salarioEmpleado${i}`).value);
+                sumaSalarios += salario;
+            }
+
+            const promedioSalarios = sumaSalarios / numEmpleados;
+
+            document.getElementById("sumaSalarios").textContent = sumaSalarios.toFixed(2);
+            document.getElementById("promedioSalarios").textContent = promedioSalarios.toFixed(2);
+            document.getElementById("resultados").style.display = "block";
+        }
+    </script>
+</body>
+</html>
